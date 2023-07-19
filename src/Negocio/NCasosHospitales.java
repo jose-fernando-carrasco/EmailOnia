@@ -80,6 +80,7 @@ public class NCasosHospitales {
     }
     
     
+    
     public String[] ver(ArrayList<String> parametros) throws SQLException, ParseException {
         
         if(parametros.size()>1)

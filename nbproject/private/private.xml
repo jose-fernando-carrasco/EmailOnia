@@ -3,16 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/Conexion/IEmailEventListener.java</file>
             <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/Utils/Utiles.java</file>
-            <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/saludsc/MailAplication.java</file>
-            <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/saludsc/SALUDSC.java</file>
-            <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/Datos/DEstadiaEnfermedad.java</file>
+            <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/Utils/Handler.java</file>
+            <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/Metodos/CasoHospital.java</file>
+            <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/Datos/DMapas.java</file>
             <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/Utils/Validator.java</file>
-            <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/Negocio/NCasosBrigadas.java</file>
+            <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/Datos/DEstadiaEnfermedad.java</file>
+            <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/Negocio/NCasosHospitales.java</file>
             <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/Comunicacion/SendEmailThread.java</file>
+            <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/Conexion/IEmailEventListener.java</file>
+            <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/saludsc/MailAplication.java</file>
+            <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/Negocio/NMapas.java</file>
+            <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/saludsc/SALUDSC.java</file>
+            <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/Metodos/CasoBrigada.java</file>
+            <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/Utils/HtmlBuilder.java</file>
+            <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/Conexion/DBConnection.java</file>
+            <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/Negocio/NCasosBrigadas.java</file>
+            <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/Datos/DEnfermedadViralMapa.java</file>
             <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/Utils/Email.java</file>
             <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/Comunicacion/MailVerificationThread.java</file>
+            <file>file:/C:/Users/Usuario/Downloads/SALUDSC/src/Metodos/Mapa.java</file>
         </group>
     </open-files>
 </project-private>

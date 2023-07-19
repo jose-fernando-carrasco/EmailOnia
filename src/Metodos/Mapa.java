@@ -1,7 +1,11 @@
 package Metodos;
 
-import Negocio.NCasosHospitales;
+import Negocio.NCasosBrigadas;
+import Negocio.NMapas;
+import Utils.Email;
 import Utils.Handler;
+import Utils.HtmlBuilder;
+import Utils.Utiles;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -10,29 +14,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import saludsc.MailAplication;
 
+public class Mapa {
 
-public class CasoHospital {
-    
-    private NCasosHospitales ncasohospital;
+    private NMapas nmapa;
 
-    public CasoHospital() {
-        this.ncasohospital = new NCasosHospitales();
+    public Mapa() {
+        this.nmapa = new NMapas();
     }
-    
-    
+
     public void listar(ArrayList<String> parametros, String correo) {
         try {
             String mensaje = "No tiene los permisos, No es un Usuario registrado";
             //if (brigada.permiso(correo)) {
-            ArrayList<String[]> casos = ncasohospital.listar();
-            mensaje = "Caso Brigada Listar Correctamente";
+            ArrayList<ArrayList<String[]>> mapasConEnfermedades = nmapa.listar();
+            mensaje = "Mapa Listar Correctamente";
             //}
-            //Email emailObject = new Email(correo, Email.SUBJECT, mensaje);
-            //sendEmail(emailObject);
-            System.out.println(mensaje);
-            for (int i = 0; i < casos.size(); i++) {
-                System.out.println("Caso[" + i + "]: " + Arrays.toString(casos.get(i)));
-            }
+            String[] headers = {"Id", "Titulo", "Detalle", "Latitud", "Longitud", "Enfermedades"};
+            ArrayList<String[]> filas = Utiles.filasMapas(mapasConEnfermedades.get(0),mapasConEnfermedades.get(1));
+            Email emailObject = new Email(correo, "GRUPO 13 SC", HtmlBuilder.generateTabla(headers,filas));
+            Email.sendEmail(emailObject);
+            
         } catch (SQLException ex) {
             System.out.println("entre a SQLException");
             Logger.getLogger(MailAplication.class.getName()).log(Level.SEVERE, null, ex);
@@ -50,13 +51,13 @@ public class CasoHospital {
         try {
             String mensaje = "No tiene los permisos, No es un Usuario registrado";
             //if (brigada.permiso(correo)) {
-            String[] caso = ncasohospital.ver(parametros);
-            mensaje = "Caso Brigada Ver Correctamente";
+            ArrayList<String[]> mapa = nmapa.ver(parametros);
+            mensaje = "Mapa Ver Correctamente";
             //}
-            //Email emailObject = new Email(correo, Email.SUBJECT, mensaje);
-            //sendEmail(emailObject);
+            Email emailObject = new Email(correo, "GRUPO 13 SC", HtmlBuilder.generateMapa());
+            Email.sendEmail(emailObject);
             System.out.println(mensaje);
-            System.out.println(Arrays.toString(caso));
+            System.out.println(mapa);
         } catch (SQLException ex) {
             System.out.println("entre a SQLException");
             Logger.getLogger(MailAplication.class.getName()).log(Level.SEVERE, null, ex);
@@ -76,11 +77,11 @@ public class CasoHospital {
         try {
             String mensaje = "No tiene los permisos, No es un Usuario registrado";
             //if (brigada.permiso(correo)) {
-            ncasohospital.eliminar(parametros);
-            mensaje = "Caso Brigada Eliminado Correctamente";
+            nmapa.eliminar(parametros);
+            mensaje = "Mapa Eliminado Correctamente";
             //}
-            //Email emailObject = new Email(correo, Email.SUBJECT, mensaje);
-            //sendEmail(emailObject);
+            Email emailObject = new Email(correo, "GRUPO 13 SC", HtmlBuilder.generateSuccess("Muy Bien", mensaje));
+            Email.sendEmail(emailObject);
             System.out.println(mensaje);
         } catch (SQLException ex) {
             System.out.println("entre a SQLException");
@@ -101,11 +102,11 @@ public class CasoHospital {
         try {
             String mensaje = "No tiene los permisos, No es un Usuario registrado";
             //if (brigada.permiso(correo)) {
-            ncasohospital.modificar(parametros);
-            mensaje = "Caso Brigada Modificado Correctamente";
+            nmapa.modificar(parametros);
+            mensaje = "Mapa Modificado Correctamente";
             //}
-            //Email emailObject = new Email(correo, Email.SUBJECT, mensaje);
-            //sendEmail(emailObject);
+            Email emailObject = new Email(correo, "GRUPO 13 SC", HtmlBuilder.generateSuccess("Muy Bien", mensaje));
+            Email.sendEmail(emailObject);
             System.out.println(mensaje);
         } catch (SQLException ex) {
             System.out.println("entre a SQLException");
@@ -126,11 +127,11 @@ public class CasoHospital {
         try {
             String mensaje = "No tiene los permisos, No es un Usuario registrado";
             //if (brigada.permiso(correo)) {
-            ncasohospital.guardar(parametros);
-            mensaje = "Caso Brigada Guardado Correctamente";
+            nmapa.guardar(parametros);
+            mensaje = "Mapa Guardado Correctamente";
             //}
-            //Email emailObject = new Email(correo, Email.SUBJECT, mensaje);
-            //sendEmail(emailObject);
+            Email emailObject = new Email(correo, "GRUPO 13 SC", HtmlBuilder.generateSuccess("Muy Bien", mensaje));
+            Email.sendEmail(emailObject);
             System.out.println(mensaje);
         } catch (SQLException ex) {
             System.out.println("entre a SQLException");

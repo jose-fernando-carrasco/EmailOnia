@@ -22,50 +22,52 @@ public class Handler {
     
     public static void handleError(int type, String email, List<String> args) {
         Email emailObject = null;
+        String html = "";
         System.out.println("Entre al handleError");
 
         switch (type) {
             case Token.ERROR_CHARACTER:
-                emailObject = new Email(email, Email.SUBJECT, "Caracter desconocido"
+                html = HtmlBuilder.generateError("UPS ERROR!", "Caracter desconocido"
                         + "No se pudo ejecutar el comando [" + args.get(0) + "] debido a: "
                         + "El caracter \"" + args.get(1) + "\" es desconocido."
                 );
                 break;
             case Token.ERROR_COMMAND:
-                emailObject = new Email(email, Email.SUBJECT, "Comando desconocido"
+                html = HtmlBuilder.generateError("UPS ERROR!", "Comando desconocido"
                         + "No se pudo ejecutar el comando [" + args.get(0) + "] debido a: "
                         + "No se reconoce la palabra \"" + args.get(1) + "\" como un comando válido"
                 );
                 break;
             case CONSTRAINTS_ERROR:
-                emailObject = new Email(email, Email.SUBJECT, "Error al interactuar con la base de datos"
+                html = HtmlBuilder.generateError("UPS ERROR!", "Error al interactuar con la base de datos"
                         + ", Referencia a información inexistente"
                 );
                 break;
             case NUMBER_FORMAT_ERROR:
-                emailObject = new Email(email, Email.SUBJECT, "Error en el tipo de parámetro"
+                html = HtmlBuilder.generateError("UPS ERROR!", "Error en el tipo de parámetro"
                         + "El tipo de uno de los parámetros es incorrecto"
                 );
                 break;
             case INDEX_OUT_OF_BOUND_ERROR:
-                emailObject = new Email(email, Email.SUBJECT,
-                        "Cantidad de parámetros incorrecta, "
-                        + "La cantidad de parámetros para realizar la acción es incorrecta"
-                );
+                html = HtmlBuilder.generateError("UPS ERROR!", "Cantidad de parámetros incorrecta, "
+                        + "La cantidad de parámetros para realizar la acción es incorrecta");
                 break;
             case PARSE_ERROR:
-                emailObject = new Email(email, Email.SUBJECT, "Error al procesar la fecha"
+                html = HtmlBuilder.generateError("UPS ERROR!", "Error al procesar la fecha"
                         + "La fecha introducida posee un formato incorrecto"
                 );
                 break;
             case AUTHORIZATION_ERROR:
-                emailObject = new Email(email, Email.SUBJECT, "Acceso denegado"
+                html = HtmlBuilder.generateError("UPS ERROR!", "Acceso denegado"
                         + "Usted no posee los permisos necesarios para realizar la acción solicitada"
                 );
                 break;
         }
-        //sendEmail(emailObject);
+                
+        emailObject = new Email(email, "GRUPO 13 SC",html);
+        Email.sendEmail(emailObject);
         System.out.println("ERROR: " + emailObject.getMessage());
+        System.out.println("SUBJECT: " + emailObject.getSubject());
     }
     
 }

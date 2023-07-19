@@ -1,6 +1,7 @@
 package Datos;
 
 import Conexion.DBConnection;
+import Utils.Utiles;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,11 +21,13 @@ public class DEnfermedadViralMapa {
 
     public void guardar(int enfermedad_viral_id, int mapa_id) throws SQLException, ParseException {
 
-        String query = "INSERT INTO enfermedad_viral_mapa(enfermedad_viral_id,mapa_id)"
-                + " values(?,?)";
+        String query = "INSERT INTO enfermedad_viral_mapa(enfermedad_viral_id,mapa_id, created_at, updated_at)"
+                + " values(?,?,?,?)";
         PreparedStatement ps = conexion.conectar().prepareStatement(query);
         ps.setInt(1, enfermedad_viral_id);
         ps.setInt(2, mapa_id);
+        ps.setTimestamp(3, Utiles.now());
+        ps.setTimestamp(4, Utiles.now());
 
         if (ps.executeUpdate() == 0) {
             System.err.println("Class D_enfermedad_viral_mapa.java dice: Ocurrio un error al guardar()");

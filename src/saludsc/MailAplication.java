@@ -12,6 +12,7 @@ import Comunicacion.SendEmailThread;
 import Conexion.IEmailEventListener;
 import Metodos.CasoBrigada;
 import Metodos.CasoHospital;
+import Metodos.Mapa;
 import Negocio.NCasosHospitales;
 import interpreter.analex.Interpreter;
 import interpreter.analex.interfaces.ITokenEventListener;
@@ -38,12 +39,14 @@ public class MailAplication implements IEmailEventListener, ITokenEventListener 
     
     private CasoHospital casoHospital;
     private CasoBrigada casoBrigada;
+    private Mapa mapa;
 
     public MailAplication() {
         mailVerificationThread = new MailVerificationThread();
         mailVerificationThread.setEmailEventListener(MailAplication.this);
         casoBrigada = new CasoBrigada();
         casoHospital = new CasoHospital();
+        mapa = new Mapa();
 
     }
 
@@ -52,10 +55,10 @@ public class MailAplication implements IEmailEventListener, ITokenEventListener 
         thread.setName("Mail Verfication Thread");
         thread.start();
         //-------eliminar------ ya está add
-        List<Email> em = new ArrayList<>();
-        String coma = "casohospital add [2001-02-01; 2023-12-02; detalle; 1; 6; 4; 2]";
+       /*List<Email> em = new ArrayList<>();
+        String coma = "mapa get ";
         em.add(new Email("fernandocarrasc591@gmail.com", coma, "Hulala"));
-        onReceiveEmailEvent(em);
+        onReceiveEmailEvent(em);*/
         //-------hasta aqui----
     }
 
@@ -80,11 +83,28 @@ public class MailAplication implements IEmailEventListener, ITokenEventListener 
         Handler.handleError(event.getAction(), event.getSender(), event.getParams());
     }
     
-    private void sendEmail(Email email) {
-        SendEmailThread sendEmail = new SendEmailThread(email);
-        Thread thread = new Thread(sendEmail);
-        thread.setName("Send email Thread");
-        thread.start();
+   
+    
+    @Override
+    public void mapa(TokenEvent event) {
+        System.out.println("mapa() -> " + event.getAction());
+        switch (event.getAction()) {
+            case Token.ADD:
+                mapa.agregar((ArrayList<String>) event.getParams(), event.getSender());
+                break;
+            case Token.MODIFY:
+                mapa.modificar((ArrayList<String>) event.getParams(), event.getSender());
+                break;
+            case Token.DELETE:
+                mapa.eliminar((ArrayList<String>) event.getParams(), event.getSender());
+                break;
+            case Token.VERIFY:
+                mapa.ver((ArrayList<String>) event.getParams(), event.getSender());
+                break;
+            case Token.GET:
+                mapa.listar((ArrayList<String>) event.getParams(), event.getSender());
+                break;
+        }
     }
 
     

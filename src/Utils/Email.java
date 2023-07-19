@@ -1,5 +1,7 @@
 package Utils;
 
+import Comunicacion.SendEmailThread;
+
 public class Email {
     public static final String SUBJECT = "Request respose";
     private String from;
@@ -51,6 +53,13 @@ public class Email {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+     public static void sendEmail(Email email) {
+        SendEmailThread sendEmail = new SendEmailThread(email);
+        Thread thread = new Thread(sendEmail);
+        thread.setName("Send email Thread");
+        thread.start();
     }
 
     @Override
