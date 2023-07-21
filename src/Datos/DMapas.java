@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 public class DMapas {
 
-    private DBConnection conexion;
+   private DBConnection conexion;
 
     public DMapas() {
         this.conexion = new DBConnection();
@@ -20,13 +20,15 @@ public class DMapas {
 
     public long guardar(String name, String detalle, Double latitud, Double longitud) throws SQLException, ParseException {
 
-        String query = "INSERT INTO mapas(name, detalle, latitud, longitud) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO mapas(name, detalle, latitud, longitud, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = conexion.conectar().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
         ps.setString(1, name);
         ps.setString(2, detalle);
         ps.setDouble(3, latitud);
         ps.setDouble(4, longitud);
+        ps.setTimestamp(5, Utiles.now());
+        ps.setTimestamp(6, Utiles.now());
 
         int rowsAffected = ps.executeUpdate();
 
@@ -58,7 +60,7 @@ public class DMapas {
         ps.setString(2, detalle);
         ps.setDouble(3, latitud);
         ps.setDouble(4, longitud);
-        ps.setTimestamp(5, java.sql.Timestamp.valueOf(Utiles.fechaAtual()));
+        ps.setTimestamp(5, Utiles.now());
         ps.setInt(6, mapaId);
 
         if (ps.executeUpdate() == 0) {
@@ -122,6 +124,19 @@ public class DMapas {
         return mapas;
     }
      
+     
+    public boolean existeID(int id) throws SQLException {
+        int idr = -1;
+        String query = "SELECT * FROM mapas WHERE id=?";
+        PreparedStatement ps = conexion.conectar().prepareStatement(query);
+        ps.setInt(1, id);
+                
+        ResultSet set = ps.executeQuery();
+        if(set.next()) {
+            idr = set.getInt("id");
+        } 
+        return idr != -1;
+    }
      
     public void desconectar() {
         if (conexion != null) {

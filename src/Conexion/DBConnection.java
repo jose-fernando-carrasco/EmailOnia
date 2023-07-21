@@ -9,15 +9,20 @@ public class DBConnection {
     private static final String DRIVER = "jdbc:postgresql://";
     private final String HOST = "localhost";
     private final String PUERTO = "5432";
-    private final String DB = "tecnito";
+    private final String DB = "saludsc";
     private final String USER = "postgres";
-    private final String PASSWORD = "toor";
+    private final String PASSWORD = "1";
     
     private static DBConnection instancia;
     private Connection connection;
     
     public DBConnection(){
         this.connection = null;
+    }
+    
+    public static void main(String[] args) {
+        DBConnection A = new DBConnection();
+        A.conectar();
     }
     
     public Connection conectar() {
@@ -47,9 +52,7 @@ public class DBConnection {
         return instancia;
     }
     
-     public static void main(String[] args) {
-        DBConnection A = new DBConnection();
-    }
+    
     
    
 }

@@ -10,6 +10,17 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
+
 public class Utiles {
     
     public static Timestamp now(){
@@ -46,6 +57,26 @@ public class Utiles {
         return dateString;
     }
     
+    public static ArrayList<String[]> filasMapas(ArrayList<String[]> mapas, ArrayList<String[]> enfermedadesId){
     
+        ArrayList<String[]> filas = new ArrayList<>();
+
+        for (int i = 0; i < mapas.size(); i++) {
+            String[] mapa = mapas.get(i);
+
+            String[] enfermedades = enfermedadesId.get(i);
+            String enfer = "";
+            for (String enfermedad : enfermedades) {
+                enfer += enfermedad + ", ";
+            }
+            String[] en = {enfer};
+            String[] newMapa = new String[mapa.length + en.length];
+            System.arraycopy(mapa, 0, newMapa, 0, mapa.length);
+            System.arraycopy(en, 0, newMapa, mapa.length, en.length);
+
+            filas.add(newMapa); 
+        }
+        return filas;
+    }
     
 }
